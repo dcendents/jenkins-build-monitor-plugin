@@ -13,11 +13,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 import org.codehaus.jackson.annotate.JsonValue;
+import org.kohsuke.stapler.MetaClass;
+import org.kohsuke.stapler.WebApp;
+import org.kohsuke.stapler.jelly.JellyClassLoaderTearOff;
 
 /**
  * @author Jan Molak
@@ -48,7 +50,8 @@ public class BadgesDetails implements Feature<BadgesDetails.Badges> {
         private final List<String> badges = newArrayList();
 
         public Badges(List<BuildBadgeAction> badgeActions) {
-    		JellyContext context = new JellyContext();
+        	MetaClass mc = WebApp.getCurrent().getMetaClass(getClass());
+    		JellyContext context = mc.classLoader.loadTearOff(JellyClassLoaderTearOff.class).createContext();
 
     		context.setVariable("app", Jenkins.getInstance());
     		context.setVariable("rootURL", Jenkins.getInstance().getRootUrl());
@@ -64,12 +67,6 @@ public class BadgesDetails implements Feature<BadgesDetails.Badges> {
 
     			if( jellyFile != null ) {
     				try {
-    					String jellyContent = new String(IOUtils.toByteArray(badge.getClass().getResourceAsStream(jelly)));
-    					if( jellyContent.contains("${%")) {
-    						// Does not support internationalized content yet
-    						continue;
-    					}
-
     					ByteArrayOutputStream html = new ByteArrayOutputStream();
     					XMLOutput xmlOutput = XMLOutput.createXMLOutput(html);
     					context.runScript(jellyFile, xmlOutput);
