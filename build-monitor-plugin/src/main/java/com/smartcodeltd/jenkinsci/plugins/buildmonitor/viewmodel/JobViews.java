@@ -43,7 +43,7 @@ public class JobViews {
             viewFeatures.add(new CanBeDiagnosedForProblems(config.getBuildFailureAnalyzerDisplayedField()));
         }
 
-        if (jenkins.hasPlugin(Groovy_Post_Build)) {
+        if (jenkins.hasPlugin(Groovy_Post_Build) && config.shouldDisplayBadges()) {
         	viewFeatures.add(new HasBadges());
         }
 

@@ -11,6 +11,7 @@ import static com.smartcodeltd.jenkinsci.plugins.buildmonitor.functions.NullSafe
 public class Config {
 
     private boolean displayCommitters;
+    private boolean displayBadges;
     private BuildFailureAnalyzerDisplayedField buildFailureAnalyzerDisplayedField;
     
     public static Config defaultConfig() {
@@ -47,6 +48,15 @@ public class Config {
 
     public void setDisplayCommitters(boolean flag) {
         this.displayCommitters = flag;
+    }
+
+
+    public boolean shouldDisplayBadges() {
+        return getOrElse(displayBadges, false);
+    }
+
+    public void setDisplayBadges(boolean flag) {
+        this.displayBadges = flag;
     }
     
     @Override

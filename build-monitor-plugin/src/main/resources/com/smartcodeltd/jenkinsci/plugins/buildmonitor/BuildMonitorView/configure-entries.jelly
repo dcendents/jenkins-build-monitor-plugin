@@ -83,6 +83,10 @@
           </select>
         </f:entry>
 
+    <f:entry title="${%Display badges}" help="${descriptor.getHelpFile('displayBadges')}">
+      <f:checkbox id="displayBadges" field="displayBadges" />
+    </f:entry>
+
   </f:section>
 
   <script>
