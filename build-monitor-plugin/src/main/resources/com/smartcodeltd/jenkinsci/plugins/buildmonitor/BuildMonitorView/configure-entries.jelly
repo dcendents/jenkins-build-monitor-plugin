@@ -87,6 +87,13 @@
       <f:checkbox id="displayBadges" field="displayBadges" />
     </f:entry>
 
+    <f:entry title="${%Display badges from}" help="${descriptor.getHelpFile('displayBadgesFrom')}">
+      <select name="displayBadgesFrom" class="setting-input">
+        <f:option value="GetLastBuild" selected='${it.currentDisplayBadgesFrom()=="GetLastBuild"}'>${%Last Build}</f:option>
+        <f:option value="GetLastCompletedBuild" selected="${it.currentDisplayBadgesFrom()=='GetLastCompletedBuild'}">${%Last Completed Build}</f:option>
+      </select>
+    </f:entry>
+
   </f:section>
 
   <script>

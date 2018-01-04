@@ -1,6 +1,8 @@
 package com.smartcodeltd.jenkinsci.plugins.buildmonitor;
 
 import com.google.common.base.Objects;
+import com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetBuildViewModel;
+import com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetLastBuild;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.order.ByName;
 import hudson.model.Job;
 
@@ -12,6 +14,7 @@ public class Config {
 
     private boolean displayCommitters;
     private boolean displayBadges;
+    private GetBuildViewModel displayBadgesFrom;
     private BuildFailureAnalyzerDisplayedField buildFailureAnalyzerDisplayedField;
     
     public static Config defaultConfig() {
@@ -59,7 +62,15 @@ public class Config {
         this.displayBadges = flag;
     }
     
-    @Override
+    public GetBuildViewModel getDisplayBadgesFrom() {
+		return getOrElse(displayBadgesFrom, new GetLastBuild());
+	}
+
+	public void setDisplayBadgesFrom(GetBuildViewModel displayBadgesFrom) {
+		this.displayBadgesFrom = displayBadgesFrom;
+	}
+
+	@Override
     public String toString() {
         return Objects.toStringHelper(this)
                 .add("order", order.getClass().getSimpleName())

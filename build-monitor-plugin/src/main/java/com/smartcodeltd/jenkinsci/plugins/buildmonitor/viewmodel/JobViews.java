@@ -44,7 +44,7 @@ public class JobViews {
         }
 
         if (jenkins.hasPlugin(Groovy_Post_Build) && config.shouldDisplayBadges()) {
-        	viewFeatures.add(new HasBadges());
+        	viewFeatures.add(new HasBadges(config));
         }
 
         boolean isPipelineJob = jenkins.hasPlugin(Pipeline) && job instanceof WorkflowJob;
