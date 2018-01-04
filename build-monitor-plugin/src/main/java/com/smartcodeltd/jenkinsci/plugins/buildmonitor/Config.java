@@ -3,6 +3,7 @@ package com.smartcodeltd.jenkinsci.plugins.buildmonitor;
 import com.google.common.base.Objects;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetBuildViewModel;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetLastBuild;
+import com.smartcodeltd.jenkinsci.plugins.buildmonitor.config.DisplayOptions;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.order.ByName;
 import hudson.model.Job;
 
@@ -13,7 +14,7 @@ import static com.smartcodeltd.jenkinsci.plugins.buildmonitor.functions.NullSafe
 public class Config {
 
     private boolean displayCommitters;
-    private boolean displayBadges;
+    private DisplayOptions displayBadges;
     private GetBuildViewModel displayBadgesFrom;
     private BuildFailureAnalyzerDisplayedField buildFailureAnalyzerDisplayedField;
     
@@ -54,12 +55,12 @@ public class Config {
     }
 
 
-    public boolean shouldDisplayBadges() {
-        return getOrElse(displayBadges, false);
+    public DisplayOptions getDisplayBadges() {
+        return getOrElse(displayBadges, DisplayOptions.UserSetting);
     }
 
-    public void setDisplayBadges(boolean flag) {
-        this.displayBadges = flag;
+    public void setDisplayBadges(DisplayOptions option) {
+        this.displayBadges = option;
     }
     
     public GetBuildViewModel getDisplayBadgesFrom() {

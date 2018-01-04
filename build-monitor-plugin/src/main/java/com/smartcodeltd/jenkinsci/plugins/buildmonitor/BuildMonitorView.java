@@ -25,6 +25,7 @@ package com.smartcodeltd.jenkinsci.plugins.buildmonitor;
 
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.api.Respond;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetBuildViewModel;
+import com.smartcodeltd.jenkinsci.plugins.buildmonitor.config.DisplayOptions;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.facade.StaticJenkinsAPIs;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.installation.BuildMonitorInstallation;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.viewmodel.JobView;
@@ -98,8 +99,8 @@ public class BuildMonitorView extends ListView {
     }
 
     @SuppressWarnings("unused") // used in the configure-entries.jelly form
-    public boolean isDisplayBadges() {
-        return currentConfig().shouldDisplayBadges();
+    public String currentDisplayBadges() {
+        return currentConfig().getDisplayBadges().name();
     }
 
     @SuppressWarnings("unused") // used in the configure-entries.jelly form
@@ -128,11 +129,12 @@ public class BuildMonitorView extends ListView {
         synchronized (this) {
 
             String requestedOrdering = req.getParameter("order");
+            String displayBadges     = req.getParameter("displayBadges");
             String displayBadgesFrom = req.getParameter("displayBadgesFrom");
             title                    = req.getParameter("title");
 
+            currentConfig().setDisplayBadges(getDisplayOptions(displayBadges));
             currentConfig().setDisplayCommitters(json.optBoolean("displayCommitters", true));
-            currentConfig().setDisplayBadges(json.optBoolean("displayBadges", false));
             currentConfig().setBuildFailureAnalyzerDisplayedField(req.getParameter("buildFailureAnalyzerDisplayedField"));
             
             try {
@@ -144,7 +146,7 @@ public class BuildMonitorView extends ListView {
             try {
                 currentConfig().setDisplayBadgesFrom(getBuildViewModelIn(displayBadgesFrom));
             } catch (Exception e) {
-                throw new FormException("Can't order projects by " + requestedOrdering, "order");
+                throw new FormException("Can't display badges from " + displayBadgesFrom, "displayBadgesFrom");
             }
         }
     }
@@ -227,6 +229,10 @@ public class BuildMonitorView extends ListView {
         String packageName = this.getClass().getPackage().getName() + ".order.";
 
         return (Comparator<Job<?, ?>>) Class.forName(packageName + requestedOrdering).newInstance();
+    }
+
+    private DisplayOptions getDisplayOptions(String value) {
+        return DisplayOptions.valueOf(value);
     }
 
     private GetBuildViewModel getBuildViewModelIn(String requestedBuild)  throws ClassNotFoundException, IllegalAccessException, InstantiationException {

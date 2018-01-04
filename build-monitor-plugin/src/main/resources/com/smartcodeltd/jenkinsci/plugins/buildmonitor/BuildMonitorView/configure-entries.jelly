@@ -84,7 +84,11 @@
         </f:entry>
 
     <f:entry title="${%Display badges}" help="${descriptor.getHelpFile('displayBadges')}">
-      <f:checkbox id="displayBadges" field="displayBadges" />
+      <select name="displayBadges" class="setting-input">
+        <f:option value="Always" selected='${it.currentDisplayBadges()=="Always"}'>${%Always}</f:option>
+        <f:option value="Never" selected="${it.currentDisplayBadges()=='Never'}">${%Never}</f:option>
+        <f:option value="UserSetting" selected="${it.currentDisplayBadges()=='UserSetting'}">${%User Setting}</f:option>
+      </select>
     </f:entry>
 
     <f:entry title="${%Display badges from}" help="${descriptor.getHelpFile('displayBadgesFrom')}">
