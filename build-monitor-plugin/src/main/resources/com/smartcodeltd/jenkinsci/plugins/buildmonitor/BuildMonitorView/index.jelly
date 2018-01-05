@@ -10,7 +10,7 @@
     <j:set var="isMSIE" value="${userAgent.contains('MSIE')}"/>
     <j:set var="resourcesURL" value="${resURL}/plugin/build-monitor-plugin" />
     <j:set var="jobsURL" value="${rootURL}/job" />
-    <j:set var="angularVersion" value="1.5.8" />
+    <j:set var="angularVersion" value="1.6.6" />
 
     <x:doctype name="html" />
     <html>

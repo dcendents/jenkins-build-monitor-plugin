@@ -70,8 +70,8 @@ angular.
         }
     }).
 
-    service('townCrier', ['$http', 'every', 'version', 'BUILD_MONITOR_VERSION',
-        function($http, every, version, BUILD_MONITOR_VERSION) {
+    service('townCrier', ['$http', '$sce', 'every', 'version', 'BUILD_MONITOR_VERSION',
+        function($http, $sce, every, version, BUILD_MONITOR_VERSION) {
 
         var hour            = 3600 * 1000,
             currentVersion  = version(BUILD_MONITOR_VERSION),
@@ -84,7 +84,7 @@ angular.
         this.start    = function() {
             every(hour, function() {
                 return $http
-                    .jsonp('https://api.github.com/repos/jan-molak/jenkins-build-monitor-plugin/releases/latest?callback=JSON_CALLBACK')
+                    .jsonp($sce.trustAsResourceUrl('https://api.github.com/repos/jan-molak/jenkins-build-monitor-plugin/releases/latest'), {jsonpCallbackParam: 'callback'})
                     .then(function(response) {
                         var latestRelease = response.data.data.tag_name;
 
@@ -200,7 +200,7 @@ angular.
         Counter.prototype.reset    = function() { this._value = 0;    }
         Counter.prototype.increase = function() { ++this._value;      }
         Counter.prototype.value    = function() { return this._value; }
-    
+
         return {
             create: function() {
                 return new Counter();

@@ -16,13 +16,13 @@ module.exports = function(config) {
         files: [
             'src/test/resources/custom_matchers.js',
             'src/main/webapp/vendor/modernizr.custom.27682.js', // needed?
-            'src/main/webapp/vendor/angular-1.5.8/angular.js',
-            'src/main/webapp/vendor/angular-1.5.8/angular-animate.js',
-            'src/main/webapp/vendor/angular-1.5.8/angular-sanitize.js',
+            'src/main/webapp/vendor/angular-1.6.6/angular.js',
+            'src/main/webapp/vendor/angular-1.6.6/angular-animate.js',
+            'src/main/webapp/vendor/angular-1.6.6/angular-sanitize.js',
             'src/main/webapp/vendor/angular-slider-5.4.0/rzslider.js',
             'src/main/webapp/vendor/ng-lodash-3.10.1.min.js',
             'src/main/webapp/vendor/ui-*.js',
-            'src/test/resources/vendor/angular-mocks-1.5.8.js',
+            'src/test/resources/vendor/angular-mocks-1.6.6.js',
             'src/test/resources/vendor/sinon-1.7.3.js',
             'src/test/resources/vendor/jasmine-sinon-0.4.0.js',
             'src/test/resources/vendor/yahoo-2.9.0.min.js',
