@@ -3,7 +3,6 @@ package com.smartcodeltd.jenkinsci.plugins.buildmonitor;
 import com.google.common.base.Objects;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetBuildViewModel;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetLastBuild;
-import com.smartcodeltd.jenkinsci.plugins.buildmonitor.config.DisplayOptions;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.order.ByName;
 import hudson.model.Job;
 
@@ -54,13 +53,12 @@ public class Config {
         this.displayCommitters = flag;
     }
 
-
     public DisplayOptions getDisplayBadges() {
         return getOrElse(displayBadges, DisplayOptions.UserSetting);
     }
 
-    public void setDisplayBadges(DisplayOptions option) {
-        this.displayBadges = option;
+    public void setDisplayBadges(String option) {
+        this.displayBadges = DisplayOptions.valueOf(option);
     }
     
     public GetBuildViewModel getDisplayBadgesFrom() {
@@ -96,5 +94,9 @@ public class Config {
         public String toString() { return value; }
     }
     
+    public enum DisplayOptions {
+    	Always, Never, UserSetting;
+    }
+
     private Comparator<Job<?, ?>> order;
 }

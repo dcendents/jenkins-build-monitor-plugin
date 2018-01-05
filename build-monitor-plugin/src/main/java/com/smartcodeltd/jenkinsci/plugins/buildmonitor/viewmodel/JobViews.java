@@ -1,6 +1,6 @@
 package com.smartcodeltd.jenkinsci.plugins.buildmonitor.viewmodel;
 
-import com.smartcodeltd.jenkinsci.plugins.buildmonitor.config.DisplayOptions;
+import com.smartcodeltd.jenkinsci.plugins.buildmonitor.Config.DisplayOptions;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.facade.StaticJenkinsAPIs;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.viewmodel.features.*;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.viewmodel.features.headline.HeadlineConfig;

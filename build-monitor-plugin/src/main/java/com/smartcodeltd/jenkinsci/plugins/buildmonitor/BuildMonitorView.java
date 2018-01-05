@@ -25,7 +25,6 @@ package com.smartcodeltd.jenkinsci.plugins.buildmonitor;
 
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.api.Respond;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.build.GetBuildViewModel;
-import com.smartcodeltd.jenkinsci.plugins.buildmonitor.config.DisplayOptions;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.facade.StaticJenkinsAPIs;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.installation.BuildMonitorInstallation;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.viewmodel.JobView;
@@ -129,11 +128,10 @@ public class BuildMonitorView extends ListView {
         synchronized (this) {
 
             String requestedOrdering = req.getParameter("order");
-            String displayBadges     = req.getParameter("displayBadges");
             String displayBadgesFrom = req.getParameter("displayBadgesFrom");
             title                    = req.getParameter("title");
 
-            currentConfig().setDisplayBadges(getDisplayOptions(displayBadges));
+            currentConfig().setDisplayBadges(req.getParameter("displayBadges"));
             currentConfig().setDisplayCommitters(json.optBoolean("displayCommitters", true));
             currentConfig().setBuildFailureAnalyzerDisplayedField(req.getParameter("buildFailureAnalyzerDisplayedField"));
             
@@ -229,10 +227,6 @@ public class BuildMonitorView extends ListView {
         String packageName = this.getClass().getPackage().getName() + ".order.";
 
         return (Comparator<Job<?, ?>>) Class.forName(packageName + requestedOrdering).newInstance();
-    }
-
-    private DisplayOptions getDisplayOptions(String value) {
-        return DisplayOptions.valueOf(value);
     }
 
     private GetBuildViewModel getBuildViewModelIn(String requestedBuild)  throws ClassNotFoundException, IllegalAccessException, InstantiationException {
