@@ -18,10 +18,12 @@ import org.jvnet.hudson.plugins.groovypostbuild.GroovyPostbuildAction;
  * @author Daniel Beland
  */
 public class HasBadges implements Feature<HasBadges.Badges> {
+	private final com.smartcodeltd.jenkinsci.plugins.buildmonitor.Config config;
 	private ActionFilter filter = new ActionFilter();
 	private JobView job;
 
-	public HasBadges() {
+	public HasBadges(com.smartcodeltd.jenkinsci.plugins.buildmonitor.Config config) {
+		this.config = config;
 	}
 
 	@Override
@@ -33,7 +35,8 @@ public class HasBadges implements Feature<HasBadges.Badges> {
 
 	@Override
 	public Badges asJson() {
-		Iterator<GroovyPostbuildAction> badges = Iterables.filter(job.lastBuild().allDetailsOf(GroovyPostbuildAction.class), filter).iterator();
+		Iterator<GroovyPostbuildAction> badges =
+				Iterables.filter(config.getDisplayBadgesFrom().from(job).allDetailsOf(GroovyPostbuildAction.class), filter).iterator();
 
 		return badges.hasNext()
 				? new Badges(badges)
@@ -48,20 +51,20 @@ public class HasBadges implements Feature<HasBadges.Badges> {
         		badges.add(new Badge(badgeActions.next()));
         	}
 		}
-		
+
 		@JsonValue
 		public List<Badge> value() {
 			return ImmutableList.copyOf(badges);
 		}
 	}
-	
+
 	public static class Badge {
 		private final GroovyPostbuildAction badge;
-		
+
 		public Badge(GroovyPostbuildAction badge) {
         	this.badge = badge;
 		}
-		
+
         @JsonProperty
         public final String text() {
             return badge.getText();
@@ -87,7 +90,7 @@ public class HasBadges implements Feature<HasBadges.Badges> {
             return badge.getBorderColor();
         }
 	}
-	
+
 	private static class ActionFilter implements Predicate<GroovyPostbuildAction> {
 		@Override
 		public boolean apply(GroovyPostbuildAction action) {

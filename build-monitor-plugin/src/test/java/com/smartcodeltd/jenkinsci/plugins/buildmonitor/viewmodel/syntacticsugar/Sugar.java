@@ -3,6 +3,7 @@ package com.smartcodeltd.jenkinsci.plugins.buildmonitor.viewmodel.syntacticsugar
 import com.google.common.base.Supplier;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.Config;
 import com.smartcodeltd.jenkinsci.plugins.buildmonitor.facade.RelativeLocation;
+import com.smartcodeltd.jenkinsci.plugins.buildmonitor.viewmodel.features.HasBadges;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -19,6 +20,14 @@ public class Sugar {
 
     public static BuildStateRecipe build() {
         return new BuildStateRecipe();
+    }
+
+    public static HasBadges hasBadges(Config config) {
+        return new HasBadges(config);
+    }
+
+    public static HasBadges hasBadges(ConfigStateRecipe config) {
+        return hasBadges(config.get());
     }
 
     public static BadgeRecipe badge() {
@@ -45,5 +54,9 @@ public class Sugar {
 
     public static Config withDefaultConfig() {
         return new ConfigStateRecipe().get();
+    }
+
+    public static ConfigStateRecipe withConfig() {
+        return new ConfigStateRecipe();
     }
 }
