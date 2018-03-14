@@ -18,6 +18,7 @@ public class JobViews {
     private static final String Claim                  = "claim";
     private static final String Build_Failure_Analyzer = "build-failure-analyzer";
     private static final String Groovy_Post_Build      = "groovy-postbuild";
+    private static final String Junit_Realtime         = "junit-realtime-test-reporter";
     private static final String Pipeline               = "workflow-aggregator";
 
     private final StaticJenkinsAPIs jenkins;
@@ -47,6 +48,10 @@ public class JobViews {
 
         if (jenkins.hasPlugin(Groovy_Post_Build) && config.getDisplayBadges() != DisplayOptions.Never) {
         	viewFeatures.add(new HasBadges(config));
+        }
+
+        if (jenkins.hasPlugin(Junit_Realtime)) {
+        	viewFeatures.add(new HasJunitRealtime());
         }
 
         boolean isPipelineJob = jenkins.hasPlugin(Pipeline) && job instanceof WorkflowJob;
