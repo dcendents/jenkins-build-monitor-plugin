@@ -76,13 +76,11 @@ public class HasJunitRealtime implements Feature<HasJunitRealtime.RealtimeTests>
 		}
 
 		@JsonProperty
-		public int getCompletedPercentage() {
-			return testProgress.getCompletedPercentage();
-		}
+		public int[] getCompletedPercentages() {
+			int value1 = Math.min(testProgress.getCompletedTestsPercentage(), testProgress.getCompletedTimePercentage());
+			int value2 = Math.max(testProgress.getCompletedTestsPercentage(), testProgress.getCompletedTimePercentage());
 
-		@JsonProperty
-		public int getLeftPercentage() {
-			return testProgress.getLeftPercentage();
+			return new int[] { value1, value2 - value1};
 		}
 
 		@JsonProperty
