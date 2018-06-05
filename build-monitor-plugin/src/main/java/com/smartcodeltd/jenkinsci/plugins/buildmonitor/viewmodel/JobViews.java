@@ -56,7 +56,7 @@ public class JobViews {
             }
         }
 
-        if (jenkins.hasPlugin(Junit_Realtime)) {
+        if (config.shouldDisplayJUnitProgress() && jenkins.hasPlugin(Junit_Realtime)) {
         	viewFeatures.add(new HasJunitRealtime());
         }
 

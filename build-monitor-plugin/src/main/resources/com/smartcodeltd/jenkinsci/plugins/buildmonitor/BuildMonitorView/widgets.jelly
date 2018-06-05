@@ -39,7 +39,7 @@
                 <li data-ng-show="!!project.realtimeTests" class="realtime-tests">
                     <div class="bs-progress"
                          data-ng-repeat="realtimeTest in project.realtimeTests track by $index"
-                         data-ng-class="realtimeTest.style"
+                         data-ng-class="{ 'bs-progress-success': realtimeTest.style == '', 'bs-progress-danger': realtimeTest.style == 'red', 'bs-progress-striped': settings.colourBlind == 1 &amp;&amp; realtimeTest.style == 'red' }"
                          title="{{ realtimeTest.completedTests }} / {{ realtimeTest.expectedTests }}, Remaining Time: ~ {{ realtimeTest.estimatedRemainingTime }}">
 
                         <div class="bar bar-progress2"

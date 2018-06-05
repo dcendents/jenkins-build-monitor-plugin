@@ -74,7 +74,7 @@
     <f:entry title="${%Display committers}" help="${descriptor.getHelpFile('displayCommitters')}">
       <f:checkbox id="displayCommitters" field="displayCommitters" />
     </f:entry>
-    
+
     <f:entry title="${%Failure Analyzer Plugin: Field to display}" help="${descriptor.getHelpFile('buildFailureAnalyzerDisplayedField')}">
           <select name="buildFailureAnalyzerDisplayedField" class="setting-input">
 			<f:option value="Name" selected="${it.currentbuildFailureAnalyzerDisplayedField()=='Name'}">${%Name}</f:option>
@@ -96,6 +96,10 @@
         <f:option value="GetLastBuild" selected='${it.currentDisplayBadgesFrom()=="GetLastBuild"}'>${%Last Build}</f:option>
         <f:option value="GetLastCompletedBuild" selected="${it.currentDisplayBadgesFrom()=='GetLastCompletedBuild'}">${%Last Completed Build}</f:option>
       </select>
+    </f:entry>
+
+    <f:entry title="${%Display Junit Realtime progress}" help="${descriptor.getHelpFile('displayJUnitProgress')}">
+      <f:checkbox id="displayJUnitProgress" field="displayJUnitProgress" />
     </f:entry>
 
   </f:section>

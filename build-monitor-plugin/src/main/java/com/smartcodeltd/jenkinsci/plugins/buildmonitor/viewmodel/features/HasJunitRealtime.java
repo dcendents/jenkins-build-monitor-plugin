@@ -95,15 +95,7 @@ public class HasJunitRealtime implements Feature<HasJunitRealtime.RealtimeTests>
 
 		@JsonProperty
 		public String getStyle() {
-			String style;
-
-			if ("red".equals(testProgress.getStyle())) {
-				style = "bs-progress-danger bs-progress-striped";
-			} else {
-				style = "bs-progress-success";
-			}
-
-			return style;
+			return testProgress.getStyle();
 		}
 	}
 
