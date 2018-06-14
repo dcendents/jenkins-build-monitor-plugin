@@ -33,6 +33,10 @@ public class ProjectWidget {
         return new ProjectWidgetPipelineStages(projectOfInterest);
     }
 
+    public Question<WebElementState> testProgressBars() {
+        return new ProjectWidgetProgressBarsState(projectOfInterest);
+    }
+
     public ProjectWidget(String projectOfInterest) {
         this.projectOfInterest = projectOfInterest;
     }
