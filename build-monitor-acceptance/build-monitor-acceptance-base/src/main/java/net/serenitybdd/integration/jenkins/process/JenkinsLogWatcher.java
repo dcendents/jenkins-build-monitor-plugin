@@ -31,7 +31,7 @@ public class JenkinsLogWatcher implements AutoCloseable, Runnable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         stop = true;
         watchers.clear();
     }
